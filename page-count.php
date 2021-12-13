@@ -1,12 +1,17 @@
 <?php
+
 require 'env.php';
 error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING);
 require 'vendor/autoload.php';
 
-$pattern_array = ["docx", "doc"];
-$file = 'CAP VILLAS DEVELOPMENT BRIEF v1.docx';
-unlink("doclist.txt");
-rsearch($folder, $pattern_array);
+$fp = open($filesDoc, "r");
+if ($fp) {
+    while (($line = fgets($fb)) !== false) {
+        $noPages = getDocPageNo($line);
+        echo $noPages . "\n";
+    }
+    fclose($fp);
+}
 
 function getNumberOfPages($filename)
 {
@@ -29,7 +34,7 @@ function getNumberOfPages($filename)
 //        //var_dump($docInfo);
 //    }
 
-    echo "Pages: " . $pages . "\n";
+    return $pages;
 }
 
 function rsearch($folder, $pattern_array)
